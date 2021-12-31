@@ -14,10 +14,12 @@ module Outdoorsy
             :vname,
             :vlength
         ]
+        def User.db_categories; @@db_categories end
 
-        # Store the max width of each catagory values across all created Users.
+        # Store the largest width of each catagory's values across all Users.
         # This will be useful when we need to display data.
-        @@max_string_width = Hash.new(0)
+        @@min_string_width = Hash.new(0)
+        def User.min_string_width; @@min_string_width end
 
         def initialize(db_line)
             super   # Could make the default an empty string, but nil is useful
@@ -50,6 +52,9 @@ module Outdoorsy
                     # Vehicle Length is a special case since we get just the digits
                     unless cat == :vlength
                         self[cat] = value
+                        if(value.size > @@min_string_width[cat])
+                            @@min_string_width[cat] = value.size
+                        end
                     else
                         self[cat] = extract_vehicle_length(value)
                     end
