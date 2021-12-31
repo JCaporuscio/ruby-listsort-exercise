@@ -1,18 +1,21 @@
+require_relative "category"
+
 module Outdoorsy
     # Main class for Outdoor.sy user data.
     # Since each database entry is fundamentally a set of key-value pairs, 
     #   extend from Hash and then add any required functionality.
     class User < Hash
+    include Category
 
         # The database categories define each data item in the input database.
         # Order *must* match the order in the database file.
         @@db_categories = [
-            :fname,
-            :lname,
-            :email,
-            :vtype,
-            :vname,
-            :vlength
+            FIRST_NAME,
+            LAST_NAME,
+            EMAIL,
+            VEHICLE_TYPE,
+            VEHICLE_NAME,
+            VEHICLE_LENGTH
         ]
         def User.db_categories; @@db_categories end
 
@@ -50,7 +53,7 @@ module Outdoorsy
                     value = values[@@db_categories.find_index(cat)]
 
                     # Vehicle Length is a special case since we get just the digits
-                    unless cat == :vlength
+                    unless cat == VEHICLE_LENGTH
                         self[cat] = value
                         if(value.size > @@min_string_width[cat])
                             @@min_string_width[cat] = value.size
@@ -59,6 +62,8 @@ module Outdoorsy
                         self[cat] = extract_vehicle_length(value)
                     end
                 end
+                # The database has first/last separate but we want them combined elsewhere
+                self[FULL_NAME] = "#{self[FIRST_NAME]} #{self[LAST_NAME]}"
             else
                 #This should be real error handling instead of puts
                 puts "Invalid Database entry encountered."
