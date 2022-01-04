@@ -47,10 +47,14 @@ until quit
 
     when "sort", "s"
         if(input_qty_correct?(inputs, 1, "Expected 1 Sort Category"))
-            Outdoorsy.sort_users(inputs[0].to_sym)
-            Outdoorsy.print_users
+            if Outdoorsy.display_categories.map{|s| s.to_s}.include? inputs[0]
+                Outdoorsy.sort_users(inputs[0].to_sym)
+                Outdoorsy.print_users
+            else
+                puts "Invalid Sort Category.  Type 'commands' for a list of valid categories"
+            end
         end
-        
+
     else
         puts "Invalid Command.  Type 'commands' for a list of commands'."
     end

@@ -17,6 +17,7 @@ module Outdoorsy
         Category::VEHICLE_NAME,
         Category::VEHICLE_LENGTH
     ]
+    def Outdoorsy.display_categories; @@display_categories end
 
     def Outdoorsy.load_database(filepath, clear_existing = true)
         if clear_existing then @@user_database.clear() end
