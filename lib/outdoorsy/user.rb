@@ -64,6 +64,9 @@ module Outdoorsy
                 end
                 # The database has first/last separate but we want them combined elsewhere
                 self[FULL_NAME] = "#{self[FIRST_NAME]} #{self[LAST_NAME]}"
+                if(self[FULL_NAME].size > @@min_string_width[FULL_NAME])
+                    @@min_string_width[FULL_NAME] = self[FULL_NAME].size
+                end
             else
                 #This should be real error handling instead of puts
                 puts "Invalid Database entry encountered."
