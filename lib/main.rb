@@ -25,6 +25,7 @@ until quit
     case command
     when "commands", "c", "help", "h"
         puts help_string
+
     when "load", "l"
         clear_existing = true
         if inputs.include? "-a"
@@ -37,15 +38,19 @@ until quit
             puts""
             Outdoorsy.print_users
         end
+
     when "print", "p"
         Outdoorsy.print_users
+
     when "quit", "q"
         quit = true
+
     when "sort", "s"
         if(input_qty_correct?(inputs, 1, "Expected 1 Sort Category"))
             Outdoorsy.sort_users(inputs[0].to_sym)
             Outdoorsy.print_users
         end
+        
     else
         puts "Invalid Command.  Type 'commands' for a list of commands'."
     end
