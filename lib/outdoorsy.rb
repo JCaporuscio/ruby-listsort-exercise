@@ -42,8 +42,10 @@ module Outdoorsy
     def Outdoorsy.print_users
         if(@@user_database.size < 1) then print "\nNo Database Loaded\n"; return; end;
 
+        # Some formatting metadata
         left_pad = 1
         right_pad = 1
+        #Easiest to determine width ahead of time, it guarantees consistency
         column_width = User.min_string_width.each_with_object({}) do |(k, v), a|
             header_width = Category::NAME_STRING[k].length
             a[k] = v >= header_width ? v : header_width

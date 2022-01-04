@@ -1,5 +1,6 @@
 require_relative "outdoorsy"
 
+#Use expand_path since the calling directory isn't guaranteed
 help_string = File.read(File.expand_path("../helpText.txt", __FILE__))
 
 def input_qty_correct?(inputs, expected_qty, error_msg)
@@ -20,6 +21,8 @@ until quit
     print "Outdoor.sy> "
     inputs = gets.chomp.split(" ")
 
+    #remove elements from inputs as we use them so we're left with what we care about
+    #this makes it easier to do input checking
     command = inputs.shift
 
     case command
