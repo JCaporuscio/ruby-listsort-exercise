@@ -1,0 +1,26 @@
+
+Use the following commands to display user data:
+
+             commands | Prints a list of available commands
+
+ load [path] [option] | Loads database at the specified path.
+                        Path is relative to execution directory.
+                        Add the '-a' option to add the new database
+                          contents to already loaded data instead of
+                          clearing existing data before loading.
+
+                print | Prints the loaded database
+
+                 quit | Quits Outdoor.sy
+
+      sort [category] | Sorts and prints the loaded database
+                          by the specified category.  See below for
+                          a list of valid categories.
+
+                        Category Options for Sort:
+                        name    | User's Name
+                        email   | User's Email Address
+                        vtype   | Vehicle Type
+                        vname   | Vehicle's Name
+                        vlength | Vehicle's Length
+ 

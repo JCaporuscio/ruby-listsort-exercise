@@ -29,7 +29,9 @@ module Outdoorsy
             puts "Error loading database file, data was not loaded."
             puts "Possible issues:"
             puts " - Make sure you entered an absolute path or path relative to calling directory."
+            return
         end
+        puts "Database Loaded"
     end
 
     def Outdoorsy.sort_users(sort_category = Category::FULL_NAME)
@@ -37,6 +39,8 @@ module Outdoorsy
     end
 
     def Outdoorsy.print_users
+        if(@@user_database.size < 1) then print "\nNo Database Loaded\n"; return; end;
+
         left_pad = 1
         right_pad = 1
         column_width = User.min_string_width.each_with_object({}) do |(k, v), a|
