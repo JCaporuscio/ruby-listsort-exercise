@@ -25,7 +25,8 @@ module Outdoorsy
         def User.min_string_width; @@min_string_width end
 
         def initialize(db_line)
-            super   # Could make the default an empty string, but nil is useful
+            #nil isn't that much easier to check and this makes string work safe
+            super("")
 
             @delim = detect_delimiter(db_line)
 
