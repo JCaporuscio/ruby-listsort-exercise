@@ -35,4 +35,55 @@ module Outdoorsy
     def Outdoorsy.sort_users(sort_category = Category::FULL_NAME)
         @@user_database.sort_by! { |user| user[sort_category] }
     end
+
+    def Outdoorsy.print_users
+        left_pad = 1
+        right_pad = 1
+        column_width = User.min_string_width.each_with_object({}) do |(k, v), a|
+            header_width = Category::NAME_STRING[k].length
+            a[k] = v >= header_width ? v : header_width
+        end
+        column_delim = '|'
+
+        puts ""
+
+        # Table Header
+        @@display_categories.each do |cat|
+            print "#{Category::NAME_STRING[cat]
+                        .center(left_pad + column_width[cat] + right_pad)}"
+            print column_delim
+        end
+        puts""
+
+        #break
+        break_char = '-'
+        @@display_categories.each do |cat|
+            (left_pad + column_width[cat] + right_pad + column_delim.length)
+                .times {print break_char}
+        end
+        puts ""
+
+        #Table Contents
+        #  Remember to print padding on the justified side
+        @@user_database.each do |user|
+            @@display_categories.each do |cat|
+                case cat
+                when Category::FULL_NAME
+                    left_pad.times {print " "}
+                    print "#{user[cat].ljust(column_width[cat] + right_pad)}"
+                when Category::VEHICLE_LENGTH
+                    print "#{user[cat].to_s
+                                .rjust(left_pad + column_width[cat])}"
+                    right_pad.times {print " "}
+                else
+                    print "#{user[cat].rjust(left_pad + column_width[cat])}"
+                    right_pad.times {print " "}
+                end
+                print column_delim
+            end
+            puts ""
+        end
+        puts ""
+
+    end
 end

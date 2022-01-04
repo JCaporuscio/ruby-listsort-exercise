@@ -9,5 +9,15 @@ module Outdoorsy
         VEHICLE_TYPE = :vtype
         VEHICLE_NAME = :vname
         VEHICLE_LENGTH = :vlength
+
+        NAME_STRING = {
+            fname: "First Name",
+            lname: "Last Name",
+            name: "Name",
+            email: "Email Address",
+            vtype: "Vehicle Type",
+            vname: "Vehicle Name",
+            vlength: "Vehicle Length (Feet)"
+        }
     end
 end

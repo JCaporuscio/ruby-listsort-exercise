@@ -78,7 +78,11 @@ module Outdoorsy
         #   extract the digits to get consistency calling code.
         # While the notation varies, all units are assumed as feet.
         private def extract_vehicle_length(length_string)
-            return length_string.scan(/\d+/).join('').to_i
+            length_digits = length_string.scan(/\d+/).join('')
+            if(length_digits.length > @@min_string_width[VEHICLE_LENGTH])
+                @@min_string_width[VEHICLE_LENGTH] = length_digits.length
+            end
+            return length_digits.to_i
         end
     end
 end
